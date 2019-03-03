@@ -16,6 +16,8 @@ import text2speechImage from './text2speech.png';
 import text2speechInsetImage from './text2speech-small.svg';
 import makeymakeyImage from './makeymakey.png';
 import makeymakeyInsetImage from './makeymakey-small.svg';
+import exampleImage from './example.jpg';
+import exampleInsetImage from './example_inset.jpg';
 
 import microbitPeripheralImage from './peripheral-connection/microbit/microbit-illustration.svg';
 import microbitMenuImage from './peripheral-connection/microbit/microbit-small.svg';
@@ -233,5 +235,19 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/wedo'
 
+    },
+    {
+        name: 'Example extension',
+        extensionId: 'example',
+        iconURL: exampleImage,
+        insetIconURL: exampleInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="This is a sample extension."
+                description="Description for the 'Example' extension"
+                id="gui.extension.example.description"
+            />
+        ),
+        featured: true
     }
 ];
