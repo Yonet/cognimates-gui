@@ -52,8 +52,8 @@ export default [
             />
         ),
         extensionId: 'cognimate',
-        iconURL: visionImage,
-        insetIconURL: visionInsetImage,
+        iconURL: cognimateMenuImage,
+        insetIconURL: cognimateButtonImage,
         description: (
             <FormattedMessage
                 defaultMessage="Code with Cognimate"
