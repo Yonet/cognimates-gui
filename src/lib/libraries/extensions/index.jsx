@@ -39,8 +39,31 @@ import ev3MenuImage from './peripheral-connection/ev3/ev3-small.svg';
 import wedoPeripheralImage from './peripheral-connection/wedo/wedo-illustration.svg';
 import wedoMenuImage from './peripheral-connection/wedo/wedo-small.svg';
 import wedoButtonImage from './peripheral-connection/wedo/wedo-button-illustration.svg';
+import cognimateMenuImage from './Cognimate_extension.png';
+import cognimateButtonImage from './Cognimate_extension.png';
 
 export default [
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Cognimate"
+                description="Name for 'Cognimate' extension"
+                id="gui.extension.cognimate.name"
+            />
+        ),
+        extensionId: 'cognimate',
+        iconURL: visionImage,
+        insetIconURL: visionInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Code with Cognimate"
+                description="Description for 'Cognimate' extension"
+                id="gui.extension.cognimate.description"
+            />
+        ),
+        featured: true,
+        internetConnectionRequired: true
+    },
     {
         name: (
             <FormattedMessage
