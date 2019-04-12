@@ -149,7 +149,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
 var onClickLogo = function onClickLogo() {
-  window.location = 'https://mitmedialab.github.io/cognimates-website/about/';
+  window.location = 'http://cognimates.me';
 };
 
 var handleTelemetryModalCancel = function handleTelemetryModalCancel() {
