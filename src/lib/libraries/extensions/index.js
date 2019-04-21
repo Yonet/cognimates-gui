@@ -55,7 +55,7 @@ export default [
         disabled: true
     },
     {
-        name: 'Sphero Mini',
+        name: 'Sphero',
         extensionURL: '',
         iconURL: spheroImage,
         description: 'Control Sphero Mini.',
