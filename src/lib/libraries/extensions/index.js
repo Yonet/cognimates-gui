@@ -4,6 +4,8 @@ import penImage from './pen.png';
 import speechImage from './speech.png';
 import videoImage from './video-sensing.png';
 import wedoImage from './wedo.png';
+import spheroImage from './sphero.png';
+
 
 export default [
     {
@@ -49,6 +51,14 @@ export default [
         extensionURL: '',
         iconURL: boostImage,
         description: 'Build robots and more.',
+        featured: true,
+        disabled: true
+    },
+    {
+        name: 'Sphero Mini',
+        extensionURL: '',
+        iconURL: spheroImage,
+        description: 'Control Sphero Mini.',
         featured: true,
         disabled: true
     }

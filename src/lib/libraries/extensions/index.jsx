@@ -43,6 +43,8 @@ import wedoMenuImage from './peripheral-connection/wedo/wedo-small.svg';
 import wedoButtonImage from './peripheral-connection/wedo/wedo-button-illustration.svg';
 import wemoMenuImage from './wemo_ext.png';
 import wemoButtonImage from './wemo_ext.png';
+import spheroImage from './sphero.png';
+import spheroInsetImage from './sphero.png';
 
 export default [
     {
@@ -439,7 +441,7 @@ export default [
         featured: true, 
         internetConnectionRequired: true
     },
-    { 
+    {
         name: (
             <FormattedMessage
                 defaultMessage="Muse"
@@ -455,6 +457,27 @@ export default [
                 defaultMessage="Muse"
                 description="Description for 'Muse' extension"
                 id="gui.extension.muse.description"
+            />
+        ),
+        featured: true,
+        internetConnectionRequired: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Sphero"
+                description="Name for 'Sphero' extension"
+                id="gui.extension.sphero.name"
+            />
+        ),
+        extensionId: 'sphero',
+        iconURL: spheroImage,
+        insetIconURL: spheroInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Sphero"
+                description="Description for 'Sphero' extension"
+                id="gui.extension.sphero.description"
             />
         ),
         featured: true,
