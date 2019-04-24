@@ -45,6 +45,8 @@ import wemoMenuImage from './wemo_ext.png';
 import wemoButtonImage from './wemo_ext.png';
 import hueMenuImage from './Hue_extension.png';
 import hueButtonImage from './Hue_extension.png';
+import arduinoMenuImage from './arduino.png';
+import arduinoButtonImage from './arduino.png';
 
 export default [
     {
@@ -439,5 +441,25 @@ export default [
         ),
         featured: true,
         internetConnectionRequired: true
+    },
+    { 
+        name: (
+            <FormattedMessage
+                defaultMessage="Arduino"
+                description="Name for 'Arduino' extension"
+                id="gui.extension.arduino.name"
+            />
+        ),
+        extensionId: 'arduino',
+        iconURL: hueMenuImage,
+        insetIconURL: hueButtonImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Arduino"
+                description="Description for 'Arduino' extension"
+                id="gui.extension.arduino.description"
+            />
+        ),
+        featured: true
     }
 ];
