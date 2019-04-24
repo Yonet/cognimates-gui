@@ -451,8 +451,8 @@ export default [
             />
         ),
         extensionId: 'arduino',
-        iconURL: hueMenuImage,
-        insetIconURL: hueButtonImage,
+        iconURL: arduinoMenuImage,
+        insetIconURL: arduinoButtonImage,
         description: (
             <FormattedMessage
                 defaultMessage="Arduino"
@@ -460,6 +460,7 @@ export default [
                 id="gui.extension.arduino.description"
             />
         ),
-        featured: true
+        featured: true,
+        internetConnectionRequired: true
     }
 ];
