@@ -1,0 +1,9 @@
+
+RUN "OF" application in "bin" folder.
+
+--------------------------------------
+
+
+To run the app, please download "image-net-2012.sqlite3" and save it in the "data" folder.
+
+Download URL: https://raw.githubusercontent.com/liuliu/ccv/unstable/samples/image-net-2012.sqlite3

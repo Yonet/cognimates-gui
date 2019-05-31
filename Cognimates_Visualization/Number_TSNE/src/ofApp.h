@@ -1,0 +1,41 @@
+#pragma once
+
+#include "ofMain.h"
+#include "ofxCcv.h"
+#include "ofxTSNE.h"
+#include "ofxGui.h"
+#include "Sample.hpp"
+
+class ofApp : public ofBaseApp{
+
+	public:
+        vector<ofImage> images;
+        vector<vector<double> > imagePoints;
+        vector<vector<float> > encodings;
+    
+        vector <Sample> samples;
+        vector <string> types;
+    
+        ofEasyCam cam;
+        ofxCcv ccv;
+        ofxTSNE tsne;
+        ofxPanel gui;
+        ofParameter<float> scale;
+    
+		void setup();
+		void update();
+		void draw();
+
+		void keyPressed(int key);
+		void keyReleased(int key);
+		void mouseMoved(int x, int y );
+		void mouseDragged(int x, int y, int button);
+		void mousePressed(int x, int y, int button);
+		void mouseReleased(int x, int y, int button);
+		void mouseEntered(int x, int y);
+		void mouseExited(int x, int y);
+		void windowResized(int w, int h);
+		void dragEvent(ofDragInfo dragInfo);
+		void gotMessage(ofMessage msg);
+		
+};
