@@ -4,9 +4,18 @@
 void ofApp::setup(){
     ofBackground(0);
     
-    types.push_back("paper");
-    types.push_back("scissor");
-    types.push_back("stone");
+    count = 0;
+    
+    types.push_back("0");
+    types.push_back("1");
+    types.push_back("2");
+    types.push_back("3");
+    types.push_back("4");
+    types.push_back("5");
+    types.push_back("6");
+    types.push_back("7");
+    types.push_back("8");
+    types.push_back("9");
     
     // load all the images
     ofLog() << "Gathering images...";
@@ -70,8 +79,6 @@ void ofApp::draw(){
     
     cam.begin();
     
-    ofDrawAxis(100);
-    
     ofSeedRandom(0);    // always pick the same random positions
     ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2,-ofGetHeight()/2);
     for (int i = 0; i < imagePoints.size(); i++){
@@ -79,7 +86,21 @@ void ofApp::draw(){
         float y = ofMap(imagePoints[i][1], 0, 1, 0, scale * ofGetHeight());
         float z = ofMap(imagePoints[i][2], 0, 1, 0, scale * ofGetHeight());
         
-        ofPoint pos(x, y, z);
+        if(count ==0){
+            int rOffset = (int)ofRandom(30,50);
+            rOffsets.push_back(rOffset);
+        }
+        
+        int offset = count/rOffsets[i];
+        if (offset%2 ==0){
+            offset = rOffsets[i] - count%rOffsets[i];
+        }else{
+            offset = count%rOffsets[i];
+        }
+        
+        offset = ofMap(offset, 0, 50, -25, 25);
+        
+        ofPoint pos(x, y+offset*0.2, z);
         
         ofNode posNode;
         posNode.setGlobalPosition(pos);
@@ -92,17 +113,34 @@ void ofApp::draw(){
         
         ofPushMatrix();
         ofTranslate(pos);
-        ofRotate(ang, vec.x, vec.y, vec.z);
+        ofRotate(ang, vec.x, vec.y, -vec.z);
 //        ofRotate(30,  1,1,0);       // rotate alittle bit, so you can see the "box" of the object
         Sample tempSample;
-        tempSample.setup(0,0,0,types[ofRandom(0, 3)],i);
+        tempSample.setup(0,0,0,ofToString(i/10).c_str(),i);
+        std::printf("idx: %s\n", ofToString(i/10).c_str());
+        tempSample.savePos(pos);
         tempSample.draw(images[i]);
+        if (count==0){
+            samples.push_back(tempSample);
+        }else{
+            samples[i].savePos(pos);
+        }
 //        ofDrawBox(0,0,0,50);
         ofPopMatrix();
     }
+    count++;
+//    std::printf("size: %f\n", samples.size());
+    
+    for(int i=0; i<samples.size();i++){
+        for(int j=0; j<samples.size();j++){
+            if(i!=j and ofDist(samples[i].absPos.x, samples[i].absPos.y, samples[i].absPos.z, samples[j].absPos.x, samples[j].absPos.y, samples[j].absPos.z)<120){
+                samples[i].connect(samples[j]);
+            }
+        }
+    }
     
     cam.end();
-    gui.draw();
+//    gui.draw();
     
     
     

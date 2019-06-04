@@ -17,6 +17,9 @@ class Sample{
         float size;
         int imageIdx;
         ofVec3f pos;
+        ofVec3f absPos;
+        ofVec3f vec;
+        ofVec3f acc;
         ofColor color;
         ofImage image;
     
@@ -25,6 +28,10 @@ class Sample{
         void draw(ofImage _image);
         void fillColor(string _type);
         void loadImage(int _imageIdx);
+        void connect(Sample _other);
+        void drift();
+        void test();
+        void savePos(ofPoint _pos);
     
         Sample();
     private:

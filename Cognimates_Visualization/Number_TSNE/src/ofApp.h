@@ -15,6 +15,9 @@ class ofApp : public ofBaseApp{
     
         vector <Sample> samples;
         vector <string> types;
+        vector <int> rOffsets;
+    
+        int count;
     
         ofEasyCam cam;
         ofxCcv ccv;
