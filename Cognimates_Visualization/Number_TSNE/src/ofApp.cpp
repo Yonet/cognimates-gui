@@ -4,6 +4,13 @@
 void ofApp::setup(){
     ofBackground(0);
     
+    vidGrabber.setVerbose(true);
+    vidGrabber.setup(100,100);
+    vidGrabberCopy = vidGrabber;
+    
+    colorImg.allocate(100,100);
+    
+    
     count = 0;
     
     types.push_back("0");
@@ -16,10 +23,19 @@ void ofApp::setup(){
     types.push_back("7");
     types.push_back("8");
     types.push_back("9");
+    types.push_back("n");
     
-    // load all the images
+
+    
+    //load local image
     ofLog() << "Gathering images...";
     ofDirectory dir;
+    
+    int nFilesTest = dir.listDir(ofToDataPath("testimages/"));
+    string filePathTest = dir.getPath(0);
+    newSampleTest.load(filePathTest);
+    
+    
     int nFiles = dir.listDir(ofToDataPath("images/"));
     if(nFiles) {
         for(int i=0; i<dir.size(); i++) {
@@ -29,7 +45,7 @@ void ofApp::setup(){
             size_t lastindex = fN.find_last_of(".");
             string rawname = fN.substr(0, lastindex);
             
-//            ofLog() << " - image name "<<" / "<<rawname<<rawname[0];
+            //            ofLog() << " - image name "<<" / "<<rawname<<rawname[0];
             rawname = rawname[0];
             rawNames.push_back(rawname);
             
@@ -37,7 +53,6 @@ void ofApp::setup(){
             images.back().load(filePath);
         }
     }
-    
     // setup ofxCcv
     ccv.setup("image-net-2012.sqlite3");
     
@@ -50,19 +65,14 @@ void ofApp::setup(){
         encodings.push_back(encoding);
     }
     
-    // run t-SNE and load image points to imagePoints
-    ofLog() << "Run t-SNE on images";
-    imagePoints = tsne.run(encodings, 3, 25, 0.1, true);
-    
-    // make the images the same size
-    for (int i=0; i<images.size(); i++) {
-        images[i].resize(100 * images[i].getWidth() / images[i].getHeight(), 100);
-    }
+    //do tsne
+    imageTsne();
     
     // setup gui
     gui.setup("panel");
     gui.add(filled.set("Color Mode", false));
     gui.add(scale.set("Scale", 1,1,10));
+    gui.add(thres.set("Threshold", 100,1,500));
     
     
 //    for (int i = 0; i < 500; i++){
@@ -71,8 +81,52 @@ void ofApp::setup(){
 //    }
 }
 
+void ofApp::imageTsne(){
+    // run t-SNE and load image points to imagePoints
+    ofLog() << "Run t-SNE on images";
+    imagePoints = tsne.run(encodings, 3, 25, 0.1, true);
+    
+    // make the images the same size
+    for (int i=0; i<images.size(); i++) {
+        images[i].resize(100 * images[i].getWidth() / images[i].getHeight(), 100);
+    }
+}
+
 //--------------------------------------------------------------
 void ofApp::update(){
+//    ofBackground(100,100,100);
+    
+    bool bNewFrame = false;
+    vidGrabber.update();
+    vidGrabberCopy = vidGrabber;
+    bNewFrame = vidGrabber.isFrameNew();
+    
+    if (bNewFrame){
+        colorImg.setFromPixels(vidGrabber.getPixels());
+        grayImage = colorImg;
+        if (bLearnBakground == true){
+            grayBg = grayImage;
+            grayBg.threshold(thres);
+            newSample.setFromPixels(grayBg.getPixels());// the = sign copys the pixels from grayImage into grayBg (operator overloading)
+            newSample.crop(110, 50, 100, 100);
+            int rOffset = (int)ofRandom(30,50);
+            rOffsets.push_back(rOffset);
+            rawNames.push_back("n");
+            
+//            images.push_back(newSampleTest);
+//            newSampleCopy = newSample;
+//            newSampleCopy.save("newSample.png");
+            images.push_back(newSample);
+            
+            ofLog() << " - encoding new sample ";
+//            vector<float> encoding = ccv.encode(newSampleTest, ccv.numLayers()-1);
+            vector<float> encoding = ccv.encode(newSample, ccv.numLayers()-1);
+            encodings.push_back(encoding);
+            
+            imageTsne();
+            bLearnBakground = false;
+        }
+    }
 
 }
 
@@ -160,8 +214,13 @@ void ofApp::draw(){
     ofDisableDepthTest();
     gui.draw();
     
-    
-    
+    ofSetHexColor(0xffffff);
+//    colorImg.draw(20,20);
+//    grayImage.drawROI(110, 50, 100, 100);
+    vidGrabberCopy.getTexture().drawSubsection(0,200,320,240,110, 50, 100, 100);
+//    grayBg.draw(20,280);
+//    newSampleTest.draw(0,200);
+    newSample.draw(0,450);
     
     
     
@@ -183,7 +242,11 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    switch (key){
+        case ' ':
+            bLearnBakground = true;
+            break;
+    }
 }
 
 //--------------------------------------------------------------

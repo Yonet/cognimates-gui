@@ -4,6 +4,7 @@
 #include "ofxCcv.h"
 #include "ofxTSNE.h"
 #include "ofxGui.h"
+#include "ofxOpenCv.h"
 #include "Sample.hpp"
 
 class ofApp : public ofBaseApp{
@@ -26,10 +27,24 @@ class ofApp : public ofBaseApp{
         ofxPanel gui;
         ofParameter<bool> filled;
         ofParameter<float> scale;
+        ofParameter<float> thres;
+    
+        ofVideoGrabber vidGrabber;
+        ofVideoGrabber vidGrabberCopy;
+        ofxCvColorImage colorImg;
+        ofxCvGrayscaleImage grayImage;
+        ofxCvGrayscaleImage cropGrayImage;
+        ofxCvGrayscaleImage grayBg;
+        ofImage newSample;
+        ofImage newSampleCopy;
+        ofImage newSampleTest;
+    
+        bool bLearnBakground;
     
 		void setup();
 		void update();
 		void draw();
+        void imageTsne();
 
 		void keyPressed(int key);
 		void keyReleased(int key);

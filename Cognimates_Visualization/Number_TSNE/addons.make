@@ -1,4 +1,4 @@
 ofxCcv
 ofxGui
+ofxOpenCv
 ofxTSNE
-ofxVectorGraphics
