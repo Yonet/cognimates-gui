@@ -11,12 +11,14 @@
 Sample::Sample(){
 }
 
-void Sample::setup(float _x, float _y, float _z, string _type, int _imageIdx){
+void Sample::setup(float _x, float _y, float _z, string _type, int _imageIdx, bool _filled){
     pos.set(_x,_y,_z);
     vec.set(0,0,0);
     acc.set(0,0,0);
     size = 5;
-    fillColor(_type);
+    if (_filled){
+        fillColor(_type);
+    }
     loadImage(_imageIdx);
 }
 

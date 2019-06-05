@@ -25,6 +25,14 @@ void ofApp::setup(){
         for(int i=0; i<dir.size(); i++) {
             if (i % 20 == 0)    ofLog() << " - loading image "<<i<<" / "<<dir.size();
             string filePath = dir.getPath(i);
+            string fN = ofFilePath::getFileName(filePath);
+            size_t lastindex = fN.find_last_of(".");
+            string rawname = fN.substr(0, lastindex);
+            
+//            ofLog() << " - image name "<<" / "<<rawname<<rawname[0];
+            rawname = rawname[0];
+            rawNames.push_back(rawname);
+            
             images.push_back(ofImage());
             images.back().load(filePath);
         }
@@ -52,8 +60,10 @@ void ofApp::setup(){
     }
     
     // setup gui
-    gui.setup();
-    gui.add(scale.set("scale", 1.0, 0.0, 10.0));
+    gui.setup("panel");
+    gui.add(filled.set("Color Mode", false));
+    gui.add(scale.set("Scale", 1,1,10));
+    
     
 //    for (int i = 0; i < 500; i++){
 //        Sample tempSample; tempSample.setup(ofRandom(ofGetWidth()),ofRandom(ofGetHeight()),ofRandom(-ofGetWidth()/2, ofGetWidth()/2),types[ofRandom(0, 3)]);
@@ -78,6 +88,13 @@ void ofApp::draw(){
 //    light.enable();
     
     cam.begin();
+//    cam.enableMouseInput();
+    if(cam.getDistance()>1500){
+        cam.setDistance(1500);
+    }
+    if(cam.getDistance()<500){
+        cam.setDistance(500);
+    }
     
     ofSeedRandom(0);    // always pick the same random positions
     ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2,-ofGetHeight()/2);
@@ -113,11 +130,11 @@ void ofApp::draw(){
         
         ofPushMatrix();
         ofTranslate(pos);
-        ofRotate(ang, vec.x, vec.y, -vec.z);
+        ofRotate(ang, vec.x, vec.y, vec.z);
 //        ofRotate(30,  1,1,0);       // rotate alittle bit, so you can see the "box" of the object
         Sample tempSample;
-        tempSample.setup(0,0,0,ofToString(i/10).c_str(),i);
-        std::printf("idx: %s\n", ofToString(i/10).c_str());
+        tempSample.setup(0,0,0,rawNames[i],i,filled);
+        std::printf("idx: %s\n", rawNames[i].c_str());
         tempSample.savePos(pos);
         tempSample.draw(images[i]);
         if (count==0){
@@ -140,7 +157,8 @@ void ofApp::draw(){
     }
     
     cam.end();
-//    gui.draw();
+    ofDisableDepthTest();
+    gui.draw();
     
     
     

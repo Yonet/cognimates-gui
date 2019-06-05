@@ -23,7 +23,7 @@ class Sample{
         ofColor color;
         ofImage image;
     
-        void setup(float _x, float _y, float _z, string _type, int _imageIdx);
+        void setup(float _x, float _y, float _z, string _type, int _imageIdx,bool _filled);
         void update();
         void draw(ofImage _image);
         void fillColor(string _type);

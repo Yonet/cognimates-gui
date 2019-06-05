@@ -15,6 +15,7 @@ class ofApp : public ofBaseApp{
     
         vector <Sample> samples;
         vector <string> types;
+        vector <string> rawNames;
         vector <int> rOffsets;
     
         int count;
@@ -23,6 +24,7 @@ class ofApp : public ofBaseApp{
         ofxCcv ccv;
         ofxTSNE tsne;
         ofxPanel gui;
+        ofParameter<bool> filled;
         ofParameter<float> scale;
     
 		void setup();
