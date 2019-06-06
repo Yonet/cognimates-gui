@@ -41,6 +41,7 @@ class ofApp : public ofBaseApp{
     
         ofImage bg;
         ofImage yoursample;
+        ofImage panel;
     
         ofTrueTypeFont verdana14A;
     

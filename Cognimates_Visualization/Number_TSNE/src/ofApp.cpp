@@ -6,6 +6,7 @@ void ofApp::setup(){
     
     bg.load("bg.png");
     yoursample.load("yoursample.png");
+    panel.load("panel.png");
     
 //    vidGrabber.setVerbose(true);
 //    vidGrabber.setup(100,100);
@@ -74,7 +75,7 @@ void ofApp::setup(){
     // setup gui
     gui.setup("GUI");
     gui.add(filled.set("Color Mode", false));
-    gui.add(scale.set("Scale", 1,1,10));
+    gui.add(scale.set("Scale", 1,0.1,10));
 //    gui.add(thres.set("Threshold", 100,1,500));
     
     
@@ -231,6 +232,9 @@ void ofApp::draw(){
     
     cam.end();
     ofDisableDepthTest();
+    
+
+    
     gui.draw();
     
     ofPushStyle();
@@ -241,7 +245,9 @@ void ofApp::draw(){
 //    grayBg.draw(20,280);
 //    newSampleTest.draw(0,200);
     newSample.draw(10,500);
+    panel.draw(10,0);
     yoursample.draw(10,500);
+    
     
     ofPopStyle();
     
