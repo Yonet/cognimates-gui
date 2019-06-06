@@ -39,7 +39,15 @@ class ofApp : public ofBaseApp{
         ofImage newSampleCopy;
         ofImage newSampleTest;
     
+        ofImage bg;
+        ofImage yoursample;
+    
+        ofTrueTypeFont verdana14A;
+    
         bool bLearnBakground;
+    
+        vector<ofImage>loadedImages;
+        string originalFileExtension;
     
 		void setup();
 		void update();
@@ -57,5 +65,6 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+        void processOpenFileSelection(ofFileDialogResult openFileResult);
 		
 };
